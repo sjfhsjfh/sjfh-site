@@ -1,0 +1,15 @@
+{
+  "name": "sjfh-site",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@myriaddreamin/vite-plugin-typst": "file:../Typst/typst-ts/projects/vite-plugin-typst",
+    "astro": "^5.4.1"
+  }
+}
