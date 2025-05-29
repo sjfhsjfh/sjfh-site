@@ -4,16 +4,16 @@ import { resolve } from "path";
 
 // https://astro.build/config
 export default defineConfig({
-    // experimental: {
-    //     fonts: [
-    //         {
-    //             provider: fontProviders.google(),
-    //             name: "Montserrat",
-    //             cssVariable: "--font-montserrat",
-    //             fallbacks: ["sans"],
-    //         }
-    //     ]
-    // },
+    experimental: {
+        fonts: [
+            {
+                provider: fontProviders.google(),
+                name: "Montserrat",
+                cssVariable: "--font-montserrat",
+                fallbacks: ["sans"],
+            }
+        ]
+    },
     vite: {
         plugins: [tailwindcss() as any],
         resolve: {
