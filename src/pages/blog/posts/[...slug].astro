@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import BlogLayout from "@layouts/BlogLayout.astro";
+
+const posts = await getCollection("blog");
+
+export const getStaticPaths = (async () =>
+    (await getCollection("blog")).map((p) => ({
+        params: { slug: p.id },
+    }))) satisfies GetStaticPaths;
+
+const { slug } = Astro.params;
+const post = posts.find((post) => post.id === slug);
+if (!post) return Astro.redirect("/404");
+const { data } = post;
+---
+
+<BlogLayout title={`sjBlog - ${data.title}`}>
+    <h1 class:list={["text-3xl"]}>{data.title}</h1>
+    <div set:html={data.html} class="font-serif" />
+</BlogLayout>

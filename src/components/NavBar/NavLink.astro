@@ -1,0 +1,54 @@
+---
+interface Props {
+    /** The display name of the navigation link */
+    name: string;
+    /** The URL path that the link navigates to */
+    route: string;
+    /** Whether to capitalize the first letter of the name. Defaults to false */
+    capitalize?: boolean;
+}
+
+const { name, route, capitalize = false } = Astro.props;
+const displayName = capitalize ? name.toUpperCase() : name;
+---
+
+<style>
+    .navlink {
+        font-family: var(--font-montserrat);
+        color: var(--color-text-secondary);
+        position: relative;
+        transition: transform 0.15s ease;
+        display: inline-block;
+    }
+    
+    .navlink::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        border-radius: 1px;
+        background-color: var(--color-text);
+        transition: width 0.15s ease;
+        transform: translateX(-50%);
+    }
+    
+    .navlink:hover {
+        color: var(--color-text);
+        transform: scale(1.05);
+    }
+    
+    .navlink:hover::after {
+        width: 75%;
+    }
+</style>
+
+<a
+    href={route}
+    class:list={[
+        "navlink px-3 py-2 rounded-md text-md font-medium",
+    ]}
+>
+    {displayName}
+</a>

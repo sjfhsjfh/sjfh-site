@@ -1,0 +1,163 @@
+---
+import NavLink from "./NavLink.astro";
+import ListIcon from "../../assets/list.svg";
+
+interface Props {
+    /** A record mapping section names to their corresponding URL paths */
+    sections: Record<string, string>;
+}
+
+const { sections } = Astro.props;
+---
+
+<style>
+    nav {
+        color: var(--color-text);
+        background-color: var(--color-bg)
+    }
+
+    .mobile-menu-button {
+        color: var(--color-text-secondary);
+        background-color: var(--color-bg-content);
+    }
+
+    .mobile-menu-button:hover {
+        color: var(--color-text);
+        background-color: var(--color-bg-highlighted);
+    }
+    
+    .mobile-menu-button .icon {
+        fill: var(--color-text-secondary);
+        stroke: var(--color-text-secondary);
+        transition: all 0.2s ease;
+    }
+    
+    .mobile-menu-button:hover .icon {
+        fill: var(--color-text);
+        stroke: var(--color-text);
+    }
+
+    .mobile-menu {
+        background-color: var(--color-bg-content);
+        color: var(--color-text);
+    }
+
+    .mobile-menu h2 {
+        color: var(--color-text);
+    }
+
+    .mobile-menu-close {
+        color: var(--color-text-secondary);
+    }
+
+    .mobile-menu-close:hover {
+        color: var(--color-text);
+    }
+
+    .mobile-menu a {
+        color: var(--color-text-secondary);
+        border-color: var(--color-bg-highlighted);
+    }
+
+    .mobile-menu a:hover {
+        color: var(--color-text);
+        background-color: var(--color-bg-highlighted);
+    }
+</style>
+
+<nav class="shadow-lg fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <!-- 桌面端导航 -->
+            <div class="hidden md:flex items-center space-x-8">
+                {
+                    Object.entries(sections).map(([name, path]) => (
+                        <NavLink name={name} route={path} capitalize={true} />
+                    ))
+                }
+            </div>
+
+            <!-- 移动端汉堡菜单按钮 -->
+            <div class="md:hidden flex items-center">
+                <button
+                    type="button"
+                    class="mobile-menu-button p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    aria-expanded="false"
+                >
+                    <ListIcon class="icon w-6 h-6" />
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 移动端侧边栏遮罩 -->
+    <div
+        class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden"
+    >
+    </div>
+
+    <!-- 移动端侧边栏 -->
+    <div
+        class="mobile-menu fixed top-0 left-0 h-full w-64 shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out z-50"
+    >
+        <div class="flex items-center justify-between p-4 border-b">
+            <h2 class="text-lg font-semibold">导航菜单</h2>
+            <button type="button" class="mobile-menu-close p-2 rounded-md">
+                <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="py-4">
+            {
+                Object.entries(sections).map(([name, path]) => (
+                    <a
+                        href={path}
+                        class="block px-6 py-3 border-b duration-200"
+                    >
+                        {name}
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</nav>
+
+<script>
+    // 移动端菜单控制
+    const menuButton = document.querySelector(".mobile-menu-button");
+    const menu = document.querySelector(".mobile-menu");
+    const overlay = document.querySelector(".mobile-menu-overlay");
+    const closeButton = document.querySelector(".mobile-menu-close");
+
+    function openMenu() {
+        menu?.classList.remove("-translate-x-full");
+        overlay?.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeMenu() {
+        menu?.classList.add("-translate-x-full");
+        overlay?.classList.add("hidden");
+        document.body.style.overflow = "";
+    }
+
+    menuButton?.addEventListener("click", openMenu);
+    closeButton?.addEventListener("click", closeMenu);
+    overlay?.addEventListener("click", closeMenu);
+
+    // 点击菜单项后关闭菜单
+    const menuLinks = document.querySelectorAll(".mobile-menu a");
+    menuLinks.forEach((link) => {
+        link.addEventListener("click", closeMenu);
+    });
+</script>

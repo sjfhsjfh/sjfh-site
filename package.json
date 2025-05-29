@@ -9,7 +9,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@myriaddreamin/vite-plugin-typst": "file:../Typst/typst-ts/projects/vite-plugin-typst",
-    "astro": "^5.4.1"
+    "@myriaddreamin/typst-ts-node-compiler": "0.5.5-rc4",
+    "@myriaddreamin/typst.ts": "0.5.5-rc7",
+    "@tailwindcss/vite": "^4.1.4",
+    "astro": "^5.4.1",
+    "fast-glob": "^3.3.3",
+    "tailwindcss": "^4.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.2"
   }
 }

@@ -15,5 +15,8 @@
     "strictNullChecks": true,
     "declaration": true,
     "declarationMap": true,
+    "paths": {
+      "@*": ["./src/*"]
+    }
   },
 }

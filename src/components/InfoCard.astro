@@ -1,0 +1,226 @@
+---
+import GithubIcon from "@assets/icons/github.svg";
+import BilibiliIcon from "@assets/icons/bilibili.svg";
+import LinkedinIcon from "@assets/icons/linkedin.svg";
+import TwitterIcon from "@assets/icons/twitter.svg";
+import WebsiteIcon from "@assets/earth-asia.svg";
+import MailIcon from "@assets/mail.svg";
+
+/**
+ * InfoCard 组件的属性接口
+ */
+export interface Props {
+    /** 用户昵称或显示名称 */
+    nickname: string;
+
+    /** 用户简介或个人描述 */
+    bio: string;
+
+    /** GitHub 个人主页 URL，例如: https://github.com/username */
+    github?: string;
+
+    /** Bilibili 个人主页 URL，例如: https://space.bilibili.com/123456 */
+    bilibili?: string;
+
+    /** LinkedIn 个人主页 URL，例如: https://linkedin.com/in/username */
+    linkedin?: string;
+
+    /** Twitter 个人主页 URL，例如: https://twitter.com/username */
+    twitter?: string;
+
+    /** 邮箱地址，例如: user@example.com */
+    email?: string;
+
+    /** 个人网站 URL，例如: https://mywebsite.com */
+    website?: string;
+
+    /**
+     * 自定义链接集合
+     * @example
+     * {
+     *   "Blog": { url: "https://myblog.com", icon: BlogIcon },
+     *   "Portfolio": { url: "https://myportfolio.com", icon: PortfolioIcon }
+     * }
+     */
+    customLinks?: Record<
+        string,
+        {
+            /** 链接 URL */
+            url: string;
+            /** SVG 图标组件 */
+            icon: any;
+        }
+    >;
+}
+
+const {
+    nickname,
+    bio,
+    github,
+    bilibili,
+    linkedin,
+    twitter,
+    email,
+    website,
+    customLinks,
+} = Astro.props;
+
+// 统一处理社交链接数据
+const socialLinks = [];
+
+if (github) {
+    socialLinks.push({
+        href: github,
+        icon: GithubIcon,
+        label: "GitHub",
+        external: true,
+    });
+}
+
+if (bilibili) {
+    socialLinks.push({
+        href: bilibili,
+        icon: BilibiliIcon,
+        label: "Bilibili",
+        external: true,
+    });
+}
+
+if (linkedin) {
+    socialLinks.push({
+        href: linkedin,
+        icon: LinkedinIcon,
+        label: "LinkedIn",
+        external: true,
+    });
+}
+
+if (twitter) {
+    socialLinks.push({
+        href: twitter,
+        icon: TwitterIcon,
+        label: "Twitter",
+        external: true,
+    });
+}
+
+if (email) {
+    socialLinks.push({
+        href: `mailto:${email}`,
+        icon: MailIcon,
+        label: "Email",
+        external: false,
+    });
+}
+
+if (website) {
+    socialLinks.push({
+        href: website,
+        icon: WebsiteIcon,
+        label: "Website",
+        external: true,
+    });
+}
+---
+
+<div class="info-card rounded-xl p-6 max-w-xl mx-auto">
+    <div class="card-content flex gap-8 lg:flex-row flex-col">
+        <div class="user-info flex-1">
+            <h2 class="nickname text-2xl font-bold mb-3">
+                {nickname}
+            </h2>
+            <p class="bio text-lg leading-relaxed">
+                {bio}
+            </p>
+        </div>
+
+        <div
+            class="social-links flex flex-col gap-2 min-w-0 lg:flex-shrink-0 lg:w-40"
+        >
+            {
+                socialLinks.map(({ href, icon: Icon, label, external }) => (
+                    <a
+                        href={href}
+                        class="social-link flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-200 no-underline"
+                        {...(external && {
+                            target: "_blank",
+                            rel: "noopener noreferrer",
+                        })}
+                    >
+                        <Icon class="icon w-4 h-4 flex-shrink-0" />
+                        {label}
+                    </a>
+                ))
+            }
+
+            {
+                customLinks &&
+                    Object.entries(customLinks).map(
+                        ([name, { url, icon: CustomIcon }]) => (
+                            <a
+                                href={url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="social-link flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-200 no-underline"
+                            >
+                                <CustomIcon class="icon w-4 h-4 flex-shrink-0" />
+                                {name}
+                            </a>
+                        )
+                    )
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .info-card {
+        background: var(--color-bg-content);
+        color: var(--color-text);
+        font-family: var(--font-sans);
+    }
+
+    .nickname {
+        color: var(--color-text);
+    }
+
+    .bio {
+        color: var(--color-text-secondary);
+    }
+
+    .social-links {
+        width: 160px;
+    }
+
+    .social-link {
+        color: var(--color-text-secondary);
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .social-link:hover {
+        background-color: var(--color-bg-highlighted);
+        color: var(--color-text);
+    }
+
+    .icon {
+        fill: currentColor;
+    }
+
+    @media (max-width: 1024px) {
+        .social-links {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .card-content {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .social-links {
+            width: 100%;
+        }
+    }
+</style>

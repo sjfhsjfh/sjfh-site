@@ -1,8 +1,15 @@
 ---
-import Home from '../components/Home.astro';
-import Layout from '../layouts/Layout.astro';
+import InfoCard from "@components/InfoCard.astro";
+import SiteBase from "@components/SiteBase.astro";
 ---
 
-<Layout>
-	<Home />
-</Layout>
+<SiteBase>
+    <InfoCard
+        nickname="sjfhsjfh"
+        bio="无问西东"
+        website="/"
+        github="https://github.com/sjfhsjfh"
+        bilibili="https://space.bilibili.com/85591954"
+        email="mailto:sjfhsjfh@qq.com"
+    />
+</SiteBase>

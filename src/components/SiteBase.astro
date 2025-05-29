@@ -1,0 +1,26 @@
+---
+import BaseHtml from "./BaseHtml.astro";
+import NavBar from "./NavBar/NavBar.astro";
+
+interface Props {
+    title?: string;
+}
+const { title } = Astro.props;
+---
+
+<style>
+    .base {
+        background-color: var(--color-bg);
+        color: var(--color-text-secondary);
+    }
+</style>
+
+<BaseHtml title={title}>
+    <div class="base min-h-screen flex flex-col">
+        <NavBar sections={{ home: "/", blog: "/blog" }} />
+        <!-- NavBar height: 64px -->
+        <main class="pt-16 mx-4">
+            <slot />
+        </main>
+    </div>
+</BaseHtml>

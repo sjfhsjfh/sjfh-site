@@ -16,6 +16,12 @@
     justify: true,
   )
 
+  show raw.where(block: false): it => {
+    html.elem(
+      "code",
+      it.text,
+    )
+  }
   show raw.where(block: true): it => {
     if it.lang in ("sh", "txt") {
       zebraw(it, numbering: false)
