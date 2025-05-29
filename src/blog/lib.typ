@@ -10,11 +10,13 @@
   doc,
   title: "TITLE PLACEHOLDER",
   lang: "zh",
+  abstract: none,
   created: none,
   updated: none,
 ) = {
   let front-matter = (
     title: title,
+    abstract: abstract,
     created: format-datetime(created),
     updated: format-datetime(updated),
   )

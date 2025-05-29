@@ -1,0 +1,53 @@
+---
+interface Props {
+    title: string;
+    summary: string;
+    slug: string;
+}
+
+const { title, summary, slug } = Astro.props;
+---
+
+<div class="blog-post-card">
+    <a href={slug} class="block">
+        <h3 class="blog-post-title">{title}</h3>
+        <p class="blog-post-summary">{summary}</p>
+    </a>
+</div>
+
+<style>
+    .blog-post-card {
+        background-color: var(--color-bg-content);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        transition: all 0.2s ease;
+        border: 2px solid var(--color-line-secondary);
+    }
+
+    .blog-post-card:hover {
+        transform: scale(1.01);
+        border-color: var(--color-line-primary);
+    }
+
+    .blog-post-title {
+        font-family: system-ui, sans-serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.25rem;
+        line-height: 1.4;
+    }
+
+    .blog-post-summary {
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+    .blog-post-card a {
+        text-decoration: none;
+    }
+</style>

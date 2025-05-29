@@ -1,7 +1,25 @@
 ---
-import BlogLayout from "@layouts/BlogLayout.astro";
+import BlogPostCard from "@components/blog/BlogPostCard.astro";
+import SiteBase from "@components/SiteBase.astro";
+import { getCollection } from "astro:content";
+
+const PAGE_SIZE = 10;
+const posts = await getCollection("blog");
+const testPost = posts[0];
 ---
 
-<BlogLayout title="Blog">
-    Under construction.
-</BlogLayout>
+<SiteBase title="Blog">
+    <div class="max-w-[800px] mx-auto p-4">
+        {
+            posts
+                .slice(0, PAGE_SIZE)
+                .map((post) => (
+                    <BlogPostCard
+                        title={post.data.title}
+                        slug={`/blog/posts/${post.id}`}
+                        summary={post.data.abstract ?? ""}
+                    />
+                ))
+        }
+    </div>
+</SiteBase>

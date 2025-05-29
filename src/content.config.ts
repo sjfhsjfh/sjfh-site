@@ -10,6 +10,7 @@ import { basename, dirname, join } from "path";
 
 type TypstFrontMatter = {
     title: string;
+    abstract: string | null;
     created: string | null;
     updated: string | null;
 };
@@ -60,6 +61,7 @@ const typstBlogs = defineCollection({
     schema: z.object({
         title: z.string(),
         html: z.string(),
+        abstract: z.string().nullable(),
         created: z.string().nullable(),
         updated: z.string().nullable(),
     }),
