@@ -11,6 +11,11 @@
     --color-bg: oklch(0.15 0.05 var(--hue));
     --color-bg-content: oklch(0.9 0.05 var(--hue));
     --color-bg-highlighted: oklch(0.95 0.02 var(--hue));
+
+    /* Scrollbar colors */
+    --scrollbar-track: oklch(0.85 0.02 var(--hue));
+    --scrollbar-thumb: oklch(0.6 0.05 var(--hue));
+    --scrollbar-thumb-hover: oklch(0.5 0.08 var(--hue));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,5 +26,41 @@
         --color-bg: oklch(0.1 0.05 var(--hue));
         --color-bg-content: oklch(0.2 0.05 var(--hue));
         --color-bg-highlighted: oklch(0.3 0.05 var(--hue));
+
+        /* Dark mode scrollbar colors */
+        --scrollbar-track: oklch(0.15 0.05 var(--hue));
+        --scrollbar-thumb: oklch(0.4 0.05 var(--hue));
+        --scrollbar-thumb-hover: oklch(0.5 0.08 var(--hue));
     }
+}
+
+/* Webkit scrollbar styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--scrollbar-track);
+}
+
+/* Firefox scrollbar styles */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
