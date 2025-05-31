@@ -1,5 +1,7 @@
 #import "@preview/zebraw:0.5.2": zebraw, zebraw-init, zebraw-themes
 
+#import "html-elems.typ": code, del, pre, span
+
 #let config(
   doc,
   lang: "en",
@@ -16,12 +18,11 @@
     justify: true,
   )
 
-  show raw.where(block: false): it => {
-    html.elem(
-      "code",
-      it.text,
-    )
-  }
+  // Strike html fix
+  show strike: it => span(del(it))
+
+  // Raw html fix
+  show raw.where(block: false): it => span(pre(code(it)))
   show raw.where(block: true): it => {
     if it.lang in ("sh", "txt") {
       zebraw(it, numbering: false)

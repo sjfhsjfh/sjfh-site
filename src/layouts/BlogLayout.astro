@@ -118,6 +118,10 @@ const { title } = Astro.props;
         font-style: italic;
     }
 
+    .blog-container :global(blockquote) :global(p) {
+        color: var(--color-text-secondary);
+    }
+
     .blog-container :global(code) {
         background-color: var(--color-bg-highlighted);
         padding: 0.125rem 0.25rem;
