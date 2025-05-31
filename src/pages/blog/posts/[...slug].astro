@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import BlogLayout from "@layouts/BlogLayout.astro";
+import { render } from "astro:content";
 
 const posts = await getCollection("blog");
 
@@ -14,9 +15,10 @@ const { slug } = Astro.params;
 const post = posts.find((post) => post.id === slug);
 if (!post) return Astro.redirect("/404");
 const { data } = post;
+const { Content } = await render(post);
 ---
 
 <BlogLayout title={`sjBlog - ${data.title}`}>
     <h1 class:list={["text-3xl"]}>{data.title}</h1>
-    <div set:html={data.html} class="font-serif" />
+    <Content />
 </BlogLayout>

@@ -33,6 +33,6 @@ Typst作为文档写作的工具，实则应当主要替代Markdown，提供相�
   - [ ] latin-cjk space问题
 - [ ] 用Collection正确管理博客文章
   - [x] 基础的Collection结构
-  - [ ] 显示编译信息（warning和error）
-  - [ ] Dev时能监测文件变更刷新（全量编译就全量吧）
+  - [x] 显示编译信息（warning和error）
+  - [x] Dev时能监测文件变更刷新（全量编译就全量吧）
   - [ ] 写一个查询页（搜索，分页和筛选）
