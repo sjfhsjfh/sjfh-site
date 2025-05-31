@@ -27,6 +27,7 @@ Typst作为文档写作的工具，实则应当主要替代Markdown，提供相�
 - [ ] 使Typst文档能正常显示
   - [x] 能看见字
   - [x] 基础语义结构转换（heading一类）
+  - [ ] 博客内目录
   - [ ] reflink，页内跳转
   - [ ] 公式等无法直接转换的用svg（文字尽量可复制）
   - [ ] figure及其caption
